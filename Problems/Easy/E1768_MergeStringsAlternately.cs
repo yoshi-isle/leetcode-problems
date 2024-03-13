@@ -1,30 +1,29 @@
-﻿namespace Problems;
+﻿using System.Text;
+
+namespace Problems;
 public class E1768_MergeStringsAlternately
 {
     public static string MergeAlternately(string word1, string word2)
     {
-        string mergedString = string.Empty;
+        StringBuilder stringBuilder = new();
+        (int, string) biggestWord = word1.Length > word2.Length ? (word1.Length - 1, word1) : (word2.Length - 1, word2);
+        (int, string) smallestWord = word1.Length < word2.Length ? (word1.Length - 1, word1) : (word2.Length - 1, word2);
+        var diff = biggestWord.Item1 - smallestWord.Item1;
 
-        var upperBounds = Math.Max(word1.Length, word2.Length) - 1;
-        var lowerBounds = Math.Min(word1.Length, word2.Length) - 1;
-        string longestWord = word1.Length > word2.Length ? word1 : word2;
-        var diff = upperBounds - lowerBounds;
-
-        for (int i = 0; i <= upperBounds; i++)
+        for (int i = 0; i <= biggestWord.Item1; i++)
         {
-            if (i > lowerBounds)
+            if (i > smallestWord.Item1)
             {
                 for (int j = i; j < i + diff; j++)
                 {
-
-                    mergedString += longestWord[j];
+                    stringBuilder.Append(biggestWord.Item2[j]);
                 }
                 break;
             }
-            mergedString += word1[i];
-            mergedString += word2[i];
+            stringBuilder.Append(word1[i]);
+            stringBuilder.Append(word2[i]);
         }
 
-        return mergedString;
+        return stringBuilder.ToString();
     }
 }
