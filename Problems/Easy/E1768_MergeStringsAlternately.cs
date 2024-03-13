@@ -1,5 +1,4 @@
 ﻿namespace Problems;
-
 public class E1768_MergeStringsAlternately
 {
     public static string MergeAlternately(string word1, string word2)
